@@ -16,7 +16,8 @@ def fix_rho(rho):
     #removing negative eigenvalues
     eigvals = torch.clamp(eigvals, min=0)
     #reconstruction of density matrix from eigvals and eigvecs
-    D = torch.diag_embed(eigvals)
+    D = torch.diag_embed(eigvals.to(eigvecs.dtype))
+
 
     rho_fixed = eigvecs @ D @ eigvecs.conj().transpose(1, 2)
     #normalize trace
